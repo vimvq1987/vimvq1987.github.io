@@ -1,0 +1,56 @@
+<div>
+<h1 data-testid="storyTitle" data-selectable-paragraph="">Fix your Search &amp; Navigation (Find) indexing job, please &mdash; Quan Mai&rsquo;s blog</h1>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div role="tooltip" aria-describedby="585" aria-labelledby="585">
+<div tabindex="-1">
+<div>
+<div><img src="https://miro.medium.com/v2/da:true/resize:fill:40:40/0*CwmFQL3u3gyeLpv2" alt="Quan Mai" width="32" height="32" data-testid="authorPhoto" /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div>
+<div>
+<div role="tooltip" aria-describedby="586" aria-labelledby="586">
+<div tabindex="-1"><a href="https://medium.com/@vimvq1987?source=post_page---byline--8b800a802c19---------------------------------------" rel="noopener follow" data-testid="authorName" data-discover="true">Quan Mai</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>3 min read
+<div aria-hidden="true">&middot;</div>
+Apr 17, 2024</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p data-selectable-paragraph="">Once upon a time, a colleague asked me to look into a customer database with weird spikes in database log usage. (You might start to wonder why I am always the one who looks into weird things, is there a pattern here)</p>
+<p data-selectable-paragraph="">Upon reviewing the query store, I noticed a very high logical reads related to tblScheduledItem. From past experience, it was likely because of fragmentation of indexes in this table (which has only one clustered). I did a quick look at the table, and confirmed the index indeed has high fragmentation. I suggested to do a rebuild of that index and see what happen. Well, it could have been one of the daily simple quick questions, and I almost forgot about it.</p>
+<p data-selectable-paragraph="">A few days passed, the colleague pinged me again. Apparently they rebuilt it but it does not really help. That raised my eye brows a little bit, so I dug deeper.</p>
+<p data-selectable-paragraph="">To my surprised, the problem was not really fragmentation (it definitely contributed). The problem is that the column has a column of type&nbsp;<code>nvarchar(max)</code>&nbsp;, and it's for recording the last text from the&nbsp;<code>Execute</code>&nbsp;method of the scheduled job. It was meant for something short like "The job failed successfully", or "Deleted 12345 versions from 1337 contents". But because it's&nbsp;<code>nvarchar(max)</code>&nbsp;it could be very, very long. You can, in theory, store the entire book content of a a few very big libraries in there.</p>
+<p data-selectable-paragraph="">Of course because of you can, does not mean you should. When your column is long, each read from the table will be a burden to SQL Server. And the offending job was nothing less than our S&amp;N indexing job.</p>
+<p data-selectable-paragraph="">In theory, any job could have caused this issue, however it&rsquo;s much more likely happen with S&amp;N indexing job for a reason &mdash; it keeps track of every exception thrown during indexing process, and because it indexes each and every content of your website (except the ones you specifically, explicitly tell it not too), the chance of its running into a recurring issue that affects multiple (reads, a lot) of content is much higher than any built-in job.</p>
+<p data-selectable-paragraph="">I asked, this time, to trim the column, and most importantly, fix any exceptions that might be thrown during the index. I was on my day off when my colleague noticed me that the job is running for 10h without errors, as they fixed it. Curious, so I did check some statistic. Well, let those screenshots speak for themselves:</p>
+<figure>
+<div><picture><source srcset="https://miro.medium.com/v2/resize:fit:640/format:webp/0*MRZqUDcPNiBFsXNL 640w, https://miro.medium.com/v2/resize:fit:720/format:webp/0*MRZqUDcPNiBFsXNL 720w, https://miro.medium.com/v2/resize:fit:750/format:webp/0*MRZqUDcPNiBFsXNL 750w, https://miro.medium.com/v2/resize:fit:786/format:webp/0*MRZqUDcPNiBFsXNL 786w, https://miro.medium.com/v2/resize:fit:828/format:webp/0*MRZqUDcPNiBFsXNL 828w, https://miro.medium.com/v2/resize:fit:1100/format:webp/0*MRZqUDcPNiBFsXNL 1100w, https://miro.medium.com/v2/resize:fit:1294/format:webp/0*MRZqUDcPNiBFsXNL 1294w" type="image/webp" sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 647px" /><source srcset="https://miro.medium.com/v2/resize:fit:640/0*MRZqUDcPNiBFsXNL 640w, https://miro.medium.com/v2/resize:fit:720/0*MRZqUDcPNiBFsXNL 720w, https://miro.medium.com/v2/resize:fit:750/0*MRZqUDcPNiBFsXNL 750w, https://miro.medium.com/v2/resize:fit:786/0*MRZqUDcPNiBFsXNL 786w, https://miro.medium.com/v2/resize:fit:828/0*MRZqUDcPNiBFsXNL 828w, https://miro.medium.com/v2/resize:fit:1100/0*MRZqUDcPNiBFsXNL 1100w, https://miro.medium.com/v2/resize:fit:1294/0*MRZqUDcPNiBFsXNL 1294w" sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 647px" data-testid="og" /><img role="presentation" src="https://miro.medium.com/v2/resize:fit:809/0*MRZqUDcPNiBFsXNL" alt="" width="647" height="392" /></picture></div>
+</figure>
+<figure>
+<div><picture><source srcset="https://miro.medium.com/v2/resize:fit:640/format:webp/0*aIW19Na3Te3BKfw8 640w, https://miro.medium.com/v2/resize:fit:720/format:webp/0*aIW19Na3Te3BKfw8 720w, https://miro.medium.com/v2/resize:fit:750/format:webp/0*aIW19Na3Te3BKfw8 750w, https://miro.medium.com/v2/resize:fit:786/format:webp/0*aIW19Na3Te3BKfw8 786w, https://miro.medium.com/v2/resize:fit:828/format:webp/0*aIW19Na3Te3BKfw8 828w, https://miro.medium.com/v2/resize:fit:1100/format:webp/0*aIW19Na3Te3BKfw8 1100w, https://miro.medium.com/v2/resize:fit:918/format:webp/0*aIW19Na3Te3BKfw8 918w" type="image/webp" sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 459px" /><source srcset="https://miro.medium.com/v2/resize:fit:640/0*aIW19Na3Te3BKfw8 640w, https://miro.medium.com/v2/resize:fit:720/0*aIW19Na3Te3BKfw8 720w, https://miro.medium.com/v2/resize:fit:750/0*aIW19Na3Te3BKfw8 750w, https://miro.medium.com/v2/resize:fit:786/0*aIW19Na3Te3BKfw8 786w, https://miro.medium.com/v2/resize:fit:828/0*aIW19Na3Te3BKfw8 828w, https://miro.medium.com/v2/resize:fit:1100/0*aIW19Na3Te3BKfw8 1100w, https://miro.medium.com/v2/resize:fit:918/0*aIW19Na3Te3BKfw8 918w" sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 459px" data-testid="og" /><img role="presentation" src="https://miro.medium.com/v2/resize:fit:574/0*aIW19Na3Te3BKfw8" alt="" width="459" height="392" /></picture></div>
+</figure>
+<p data-selectable-paragraph="">The query itself went from 16,000ms to a mere 2.27ms. Even better, each call to get the list of scheduled job before results in 3.5GB logical reads. Now? 100KB. A lot of resource saved!</p>
+<p data-selectable-paragraph="">So, make sure your job is not throwing a lot of errors. And fix your S&amp;N indexing job.</p>
+<p data-selectable-paragraph="">P/S: I do think S&amp;N indexing job should have simpler return result. Maybe &ldquo;Indexed 100.000 content with 1234 errors&rdquo;, and the exceptions could have been logged. But that&rsquo;s debatable. For now, you can do your parts!</p>
