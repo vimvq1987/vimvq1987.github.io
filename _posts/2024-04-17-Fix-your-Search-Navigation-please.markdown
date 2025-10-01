@@ -1,4 +1,13 @@
-# Fix your Search & Navigation (Find) indexing job, please — Quan Mai’s blog
+---
+layout: post
+title: "Fix your Search & Navigation (Find) indexing job, please"
+date: 2024-04-17
+author: Quan Mai
+categories: [SQL Server, Diagnostics, Performance]
+tags: [indexing, nvarchar(max), query store, logical reads, S&N job]
+image: https://miro.medium.com/v2/da:true/resize:fill:40:40/0*CwmFQL3u3gyeLpv2
+excerpt: A deep dive into a performance issue caused by nvarchar(max) misuse in a scheduled indexing job.
+---
 
 ![Quan Mai](https://miro.medium.com/v2/da:true/resize:fill:40:40/0*CwmFQL3u3gyeLpv2)
 
@@ -8,26 +17,37 @@
 
 ---
 
-Once upon a time, a colleague asked me to look into a customer database with weird spikes in database log usage. (You might start to wonder why I am always the one who looks into weird things, is there a pattern here)
+Once upon a time, a colleague asked me to look into a customer database with weird spikes in database log usage. (You might start to wonder why I am always the one who looks into weird things—is there a pattern here?)
 
-Upon reviewing the query store, I noticed a very high logical reads related to `tblScheduledItem`. From past experience, it was likely because of fragmentation of indexes in this table (which has only one clustered). I did a quick look at the table, and confirmed the index indeed has high fragmentation. I suggested to do a rebuild of that index and see what happen. Well, it could have been one of the daily simple quick questions, and I almost forgot about it.
+Upon reviewing the query store, I noticed very high logical reads related to `tblScheduledItem`. From past experience, it was likely due to index fragmentation (the table has only one clustered index). A quick look confirmed high fragmentation. I suggested rebuilding the index and moved on.
 
-A few days passed, the colleague pinged me again. Apparently they rebuilt it but it does not really help. That raised my eyebrows a little bit, so I dug deeper.
+A few days later, the colleague pinged me again. Apparently, they rebuilt it—but it didn’t help. That raised my eyebrows, so I dug deeper.
 
-To my surprise, the problem was not really fragmentation (it definitely contributed). The problem is that the column has a column of type `nvarchar(max)`, and it's for recording the last text from the `Execute` method of the scheduled job. It was meant for something short like "The job failed successfully", or "Deleted 12345 versions from 1337 contents". But because it's `nvarchar(max)` it could be very, very long. You can, in theory, store the entire book content of a few very big libraries in there.
+To my surprise, fragmentation wasn’t the real issue (though it contributed). The problem was a column of type `nvarchar(max)` used to record output from the `Execute` method of the scheduled job. It was meant for short messages like:
 
-Of course because you can, does not mean you should. When your column is long, each read from the table will be a burden to SQL Server. And the offending job was nothing less than our S&N indexing job.
+- "The job failed successfully"
+- "Deleted 12345 versions from 1337 contents"
 
-In theory, any job could have caused this issue, however it’s much more likely to happen with the S&N indexing job for a reason — it keeps track of every exception thrown during the indexing process, and because it indexes each and every content of your website (except the ones you specifically, explicitly tell it not to), the chance of its running into a recurring issue that affects multiple (reads, a lot) of content is much higher than any built-in job.
+But being `nvarchar(max)`, it could store entire libraries if you wanted. And just because you can, doesn’t mean you should. Long columns make every read a burden on SQL Server. The offending job? Our S&N indexing job.
 
-I asked, this time, to trim the column, and most importantly, fix any exceptions that might be thrown during the index. I was on my day off when my colleague notified me that the job is running for 10h without errors, as they fixed it. Curious, so I did check some statistics. Well, let those screenshots speak for themselves:
+Any job could cause this, but S&N indexing is more prone because:
+
+- It tracks every exception thrown during indexing
+- It indexes nearly every content item unless explicitly excluded
+- Recurring issues affect many items, amplifying the problem
+
+I asked them to trim the column and fix any exceptions. While I was off, my colleague messaged me: the job had run for 10 hours without errors. Curious, I checked the stats. Let the screenshots speak:
 
 ![Previous](image.png)
 
 ![After](image-1.png)
 
-The query itself went from 16,000ms to a mere 2.27ms. Even better, each call to get the list of scheduled jobs before resulted in 3.5GB logical reads. Now? 100KB. A lot of resource saved!
+The query dropped from **16,000ms** to **2.27ms**. Logical reads went from **3.5GB** to **100KB**. That’s a massive resource save.
 
-So, make sure your job is not throwing a lot of errors. And fix your S&N indexing job.
+So: make sure your job isn’t throwing errors. And fix your S&N indexing job.
 
-**P/S:** I do think the S&N indexing job should have a simpler return result. Maybe “Indexed 100.000 content with 1234 errors”, and the exceptions could have been logged. But that’s debatable. For now, you can do your part!
+**P/S:** I think the S&N job should return something simpler like:
+
+> “Indexed 100,000 content with 1,234 errors”
+
+Exceptions could be logged separately. But that’s debatable. For now—do your part!
