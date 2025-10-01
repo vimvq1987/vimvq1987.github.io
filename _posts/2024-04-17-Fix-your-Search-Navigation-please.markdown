@@ -5,15 +5,9 @@ date: 2024-04-17
 author: Quan Mai
 categories: [SQL Server, Diagnostics, Performance]
 tags: [indexing, nvarchar(max), query store, logical reads, S&N job]
-image: https://miro.medium.com/v2/da:true/resize:fill:40:40/0*CwmFQL3u3gyeLpv2
+image: 
 excerpt: A deep dive into a performance issue caused by nvarchar(max) misuse in a scheduled indexing job.
 ---
-
-![Quan Mai](https://miro.medium.com/v2/da:true/resize:fill:40:40/0*CwmFQL3u3gyeLpv2)
-
-**Author:** [Quan Mai]  
-**Published:** Apr 17, 2024  
-**Reading time:** 3 min
 
 ---
 
@@ -38,9 +32,9 @@ Any job could cause this, but S&N indexing is more prone because:
 
 I asked them to trim the column and fix any exceptions. While I was off, my colleague messaged me: the job had run for 10 hours without errors. Curious, I checked the stats. Let the screenshots speak:
 
-![Previous](image.png)
+![Previous](/image.png)
 
-![After](image-1.png)
+![After](/image-1.png)
 
 The query dropped from **16,000ms** to **2.27ms**. Logical reads went from **3.5GB** to **100KB**. That’s a massive resource save.
 
