@@ -1,8 +1,15 @@
-# Fatal Flaw with Geta-NotFoundHandler
+---
+layout: post
+title: "Fatal Flaw with Geta-NotFoundHandler"
+date: 2025-10-01
+author: Quan Mai
+categories: [Diagnostics, ASP.NET Core, Optimizely]
+tags: [geta-notfoundhandler, redirects, CPU spike, memory dump, endless loop]
+image: /assets/images/image-2.png
+excerpt: A deep dive into a fatal flaw in Geta-NotFoundHandler that caused high CPU usage due to an endless loop triggered by an empty redirect rule.
+---
 
-First of all, I'd like to make this a **farewell post** to this blog. The VM that is hosting this blog—which is generously sponsored by my employer—is being decommissioned. I have looked at some alternatives to move my blog to, but none is interesting in term of time/effort/cost. With all the things going on in my life, setting up a new blog is not of priority (that'd be, surprise, surprise, **tomatoes** these days). We had a good run, and I hope this blog has been useful to you, one way or another. And I hope to see you again, some days. 👋
-
-Back to business. The topic of today is a flaw that's quite fatal in **geta-notfoundhandler**, which is open source at GitHub: [Geta/geta-notfoundhandler: The popular NotFound handler for ASP.NET Core and Optimizely, enabling better control over your 404 page in addition to allowing redirects for old URLs that no longer works.](https://github.com/Geta/geta-notfoundhandler).
+The topic of today is a flaw that's quite fatal in **geta-notfoundhandler**, which is open source at GitHub: [Geta/geta-notfoundhandler: The popular NotFound handler for ASP.NET Core and Optimizely, enabling better control over your 404 page in addition to allowing redirects for old URLs that no longer works.](https://github.com/Geta/geta-notfoundhandler).
 
 We had cases where a customer’s instance hit **very high CPU**, essentially hanging, and the only course of action was to restart the instance. Memory dumps taken at the time all pointed out to the `notfoundhandler`, specifically, `CustomRedirectCollection`.
 
