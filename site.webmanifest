@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Quan Mai's blog",
+  "short_name": "Quan Mai's blog",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
