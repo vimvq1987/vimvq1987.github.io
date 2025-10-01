@@ -2,7 +2,7 @@
 
 ![Quan Mai](https://miro.medium.com/v2/da:true/resize:fill:40:40/0*CwmFQL3u3gyeLpv2)
 
-**Author:** [Quan Mai](https://medium.com/@vimvq1987?source=post_page---byline--8b800a802c19---------------------------------------)  
+**Author:** [Quan Mai]  
 **Published:** Apr 17, 2024  
 **Reading time:** 3 min
 
@@ -22,9 +22,9 @@ In theory, any job could have caused this issue, however it’s much more likely
 
 I asked, this time, to trim the column, and most importantly, fix any exceptions that might be thrown during the index. I was on my day off when my colleague notified me that the job is running for 10h without errors, as they fixed it. Curious, so I did check some statistics. Well, let those screenshots speak for themselves:
 
-![Screenshot 1](https://miro.medium.com/v2/resize:fit:809/0*MRZqUDcPNiBFsXNL)
+![Previous](image.png)
 
-![Screenshot 2](https://miro.medium.com/v2/resize:fit:574/0*aIW19Na3Te3BKfw8)
+![After](image-1.png)
 
 The query itself went from 16,000ms to a mere 2.27ms. Even better, each call to get the list of scheduled jobs before resulted in 3.5GB logical reads. Now? 100KB. A lot of resource saved!
 
