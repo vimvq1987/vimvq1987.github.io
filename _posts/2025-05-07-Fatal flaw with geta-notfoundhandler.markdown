@@ -1,7 +1,3 @@
-Here is the complete markdown you can copy and paste:
-
------
-
 # Fatal Flaw with Geta-NotFoundHandler
 
 First of all, I'd like to make this a **farewell post** to this blog. The VM that is hosting this blog—which is generously sponsored by my employer—is being decommissioned. I have looked at some alternatives to move my blog to, but none is interesting in term of time/effort/cost. With all the things going on in my life, setting up a new blog is not of priority (that'd be, surprise, surprise, **tomatoes** these days). We had a good run, and I hope this blog has been useful to you, one way or another. And I hope to see you again, some days. 👋
