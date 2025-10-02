@@ -32,9 +32,9 @@ Any job could cause this, but S&N indexing is more prone because:
 
 I asked them to trim the column and fix any exceptions. While I was off, my colleague messaged me: the job had run for 10 hours without errors. Curious, I checked the stats. Let the screenshots speak:
 
-![Previous](/image.png)
+![Previous](asset/img/image.png)
 
-![After](/image-1.png)
+![After](asset/img/image-1.png)
 
 The query dropped from **16,000ms** to **2.27ms**. Logical reads went from **3.5GB** to **100KB**. That’s a massive resource save.
 
