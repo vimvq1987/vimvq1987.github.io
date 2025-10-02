@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "The Subtle Danger in Dictionary Keys: A Ghost Story"
+title: "The Search for the Dictionary Key"
 date: 2024-12-04 11:45:10 +0200
 categories: [debugging, csharp, dotnet, caching]
 tags: [dictionary, hashing, equality, imutable, dotnet]
 ---
 
-# The Search for the Dictionary Key Ghost
+# The Search for the Dictionary Key
 
 Recently I helped to chase down a ghost (and you might be surprised to know that I, for the most part, spend hours to be a ghostbuster—it could be fun, sometimes).
 

@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: "AsyncHelper Can Be Considered Harmful"
