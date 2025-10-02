@@ -34,6 +34,9 @@ remote_theme: "mmistakes/so-simple-theme@3.2.0"
 plugins:
   - jekyll-feed
   - jekyll-paginate
+  - jekyll-archives
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 paginate: 10  # amount of posts to show per page
 paginate_path: /page:num/
