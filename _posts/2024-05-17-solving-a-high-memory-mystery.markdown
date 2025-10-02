@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Solving the Mystery of High Memory Usage"
-date: 2025-10-02 12:33:32 +0200
+date: 2025-05-17 12:33:32 +0200
 categories: [debugging, memory, caching]
 tags: [dotnet, windbg, optimizely, find, memory-dump]
 ---

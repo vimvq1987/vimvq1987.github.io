@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Loading sos.dll to Windbg for .NET Core: The Correct Way"
-date: 2025-10-02 11:09:50 +0200
+date: 2025-03-17 11:09:50 +0200
 categories: [debugging, windbg, dotnet, memory-dump]
 tags: [sos, dotnet-core, windbg, debugging]
 ---
