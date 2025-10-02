@@ -139,4 +139,4 @@ The fix in this case is to check the `oldUrl` for both `null` and **`Empty`**. I
 
 Maybe someone can take this and contribute to the main repo for everyone, when I’m busy attending my tomatoes. 🍅
 
-![tomatoes](image-2.png)
+![tomatoes](/assets/img/image-2.png)
