@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why you should care about what you return in your ScheduledJob.Execute"
-date: 2025-03-17 11:09:50 +0200
+date: 2025-10-02 11:09:50 +0200
 categories: [performance, LOH, allocations]
 tags: [performance, allocations, perfview]
 ---
