@@ -26,7 +26,7 @@ Because that long, long string will be loaded into memory at the application lay
 
 Nobody really likes the Large Object Heap. Because it hurts your website performance when there are a lot of allocations in it. And here is a case when a scheduled job with a long, long `LastText` is repeatedly loaded into memory:
 
-![A very unusual amount of LOH allocations]
+![A very unusual amount of LOH allocations](/assets/img/loh.png)
 
 You might think, "I'm not visiting the scheduled job interface a lot, I'd be fine." No, you won't. **As long as you have a job scheduled, every time it runs, the framework will list all registered scheduled jobs, and this will happen.** If you have a very frequently called job, like every few minutes, it will add up quickly.
 
