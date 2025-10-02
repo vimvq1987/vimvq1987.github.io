@@ -47,6 +47,16 @@ defaults:
 
 permalink: /:title/
 
+jekyll-archives:
+  enabled: []
+  layout: archive
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    day: '/:year/:month/:day/'
+    tag: '/tag/:name/'
+    category: '/category/:name/'
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
