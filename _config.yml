@@ -49,7 +49,9 @@ permalink: /:title/
 
 jekyll-archives:
   enabled: all
-  layout: archive
+  layouts: 
+    category: archive-category
+    tag: archive-category
   permalinks:
     year: '/:year/'
     month: '/:year/:month/'
