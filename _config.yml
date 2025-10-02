@@ -35,8 +35,6 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-archives
-  - jekyll-seo-tag
-  - jekyll-sitemap
 
 paginate: 10  # amount of posts to show per page
 paginate_path: /page:num/
