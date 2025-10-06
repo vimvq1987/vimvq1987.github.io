@@ -8,10 +8,34 @@
 <html lang="{{ page.lang | default: site.lang | default: 'en-US' }}" class="no-js">
   {% include head.html %}
 
+
+
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %} {% if page.entries_layout == 'grid' %}page--wide{% endif %} {{ page.title | slugify }}">
+        
+            <nav class="site-nav">
+  <ul>
+    {% for item in site.nav %}
+      <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
+    {% if page.url == "/" %}
+
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to My Blog</h1>
+      <p>Insights, investigations, and occasional tomato updates 🍅</p>
+    </div>
+  </section>
+{% endif %}
+    
     {% include skip-links.html %}
     {% include navigation.html %}
     {% include masthead.html %}
+
+
+
 
     {{ content }}
 
