@@ -27,6 +27,15 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: vimvq1987
 github_username:  vimvq1987
 
+nav:
+  - title: Home
+    url: /
+  - title: About
+    url: /about/
+  - title: Books
+    url: /books/
+
+
 google_analytics: G-SS2B7PSN92
 
 # Build settings
