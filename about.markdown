@@ -4,15 +4,22 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+# 👋 Hi, I'm Quan
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I'm a issue investigator, performance optimizer, problem fixer, and novice tomato grower. This blog is where I share deep dives into memory dumps, indexing quirks, and the occasional tomato growing tip.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+## What I Do
 
+- 🧠 Root cause analysis
+- 🧵 Memory dump inspection
+- 🛠️ Code troubleshooting
+- 🕮 Write a few books at https://leanpub.com/u/vimvq1987
 
-[jekyll-organization]: https://github.com/jekyll
+## What I Believe
+
+> “Every bug tells a story. I just help it speak clearly.”
+
+## Elsewhere
+
+- [GitHub](https://github.com/vimvq1987)
+- [LinkedIn](https://www.linkedin.com/in/quan-mai-55189511/)
