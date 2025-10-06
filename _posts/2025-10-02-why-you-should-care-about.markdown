@@ -10,7 +10,7 @@ tags: [performance, allocations, perfview]
 
 First of all, welcome back to my little blog. I'm still in the process of moving the old posts that I deem read-worthy from my old blog archive to this new platform, but at least we have a platform to talk about Optimizely, Commerce, performance, troubleshooting, and a zillion things that go on in my life. I tend to keep this blog lean and simple this time, so welcome back, and enjoy.
 
-This part is an extension of [Fix your Search & Navigation please!](https://vimvq1987.com/Fix-your-Search-Navigation-please/). While Search & Navigation indexing job is a built-in job, it is not the only thing that can wreck havoc on your website performance. In fact, **any job can do that by returning a long, long value from `ScheduledJobBase.Execute`**.
+This part is an extension of [Fix your Search & Navigation indexing job please!](https://vimvq1987.com/Fix-your-Search-Navigation-please/). While Search & Navigation indexing job is a built-in job, it is not the only thing that can wreck havoc on your website performance. In fact, **any job can do that by returning a long, long value from `ScheduledJobBase.Execute`**.
 
 The `Execute` method is supposed to return the status of the job, but you can, in fact, return whatever you like into it, including anything and everything: every trace, every message, every warning, every error, etc. Because the result will be saved to a column `nvarchar(max)` in the database, which has a limitation of 2GB (roughly 1 billion characters), there will be no problem, right?
 
