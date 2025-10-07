@@ -43,3 +43,10 @@ private void DeleteMetaField(string metafieldName)
     
     MetaField.Delete(CatalogContext.MetaDataContext, metaField.Id);
 }
+```
+
+It is pretty straightforward. We load the MetaField by its name, if it is not null, then we remove it from all MetaClass that are using it, then eventually delete it.
+
+In beginning of this post we mentioned strongly typed content type, but note that order system also uses the same metaclass/metafield system, so this code can be used for them as well.
+
+This piece of code can be used in an admin-privilege controller to delete metafields on demand. Until Commerce 14 allows you to do it with a proper UI.
