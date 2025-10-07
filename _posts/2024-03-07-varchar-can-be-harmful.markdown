@@ -1,6 +1,3 @@
-To format this as a Jekyll post, I will structure it with the necessary YAML front matter and convert the content into Markdown. I'll use the title, author, date, and tags provided.
-
-````markdown
 ---
 layout: post
 title: "Varchar can be harmful to your performance"
@@ -8,7 +5,8 @@ author: vimvq1987
 date: 2024-03-07 09:00:00 +0100
 categories: [Database, Episerver, Performance]
 tags: [database, Episerver, performance, query]
-excerpt_separator: ---
+excerpt_separator: 
+---
 
 As string is the most common data type in an application, `nvarchar` and its variant `varchar` are probably the most common column types in your database. (We almost always use `nvarchar` because `nchar` is meant for fixed length columns which we don’t have). The difference is that `nvarchar` has encoding of UTF-16/USC-2 while `varchar` has UTF-8.
 
@@ -73,5 +71,3 @@ If we have data as `nvarchar(100)` but the parameter is passed as `varchar`? SQL
 
 So moral of the story? Unless you have strong reasons to use `varchar` (or `char`), stick with **`nvarchar`** (or `nchar`) to avoid complications with data type conversion which can, and will hurt your database performance.
 
-```
-```
