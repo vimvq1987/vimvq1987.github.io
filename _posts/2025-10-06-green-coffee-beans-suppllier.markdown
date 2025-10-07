@@ -46,8 +46,8 @@ This is inspired by [EU Green Coffee Sources List 2023 (home-barista.com)](https
 
 | Site | URL | Country | Ship to Sweden | Shipping cost | FOB price | Cupping score | Bag sizes | Year of harvest |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| fleurdecafe | [Unroasted coffee beans – Green coffee beans \| Fleur de café (fleurdecafe.nl)](https://fleurdecafe.nl/product-categorie/groene-koffiebonen/) | Netherlands | No | N/A | No | No | 1kg, 5kg | No |
-| groenekoffiewinkel | [Unroasted Coffee Beans \| Up To 15% Discount At Green Coffee Shop (groenekoffiewinkel.nl)](https://groenekoffiewinkel.nl/groene-koffie-kopen/) | Netherlands | No | N/A | No | No | 1kg, 5kg | No |
+| fleurdecafe | [Unroasted coffee beans – Green coffee beans \| Fleur de café (fleurdecafe.nl)](https://www.fleurdecafe.nl/koffie/ongebrande-koffiebonen) | Netherlands | No | N/A | No | No | 1kg, 5kg | No |
+| groenekoffiewinkel | [Unroasted Coffee Beans \| Up To 15% Discount At Green Coffee Shop (groenekoffiewinkel.nl)](https://www.groenekoffiewinkel.nl/koffie/ongebrande-koffiebonen/) | Netherlands | No | N/A | No | No | 1kg, 5kg | No |
 | fascino-coffee | [Green Coffee Beans \| Coffee roasting company Fascino (fascino-coffee.com)](https://fascino-coffee.com/product-categorie/green-coffee-beans/) | Netherlands | No | N/A | No | No | 1kg, 5kg | No |
 | godincoffee | [Unroasted coffee beans – Green coffee beans \| Fleur de café (fleurdecafe.nl)](https://fleurdecafe.nl/product-categorie/groene-koffiebonen/) | Netherlands | No | N/A | No | No | 1kg, 5kg | No |
 | roastrebels | [Buy green coffee in small quantities (1kg / 5kg / 15kg) \| Roast Rebels](https://roastrebels.com/en/shop/) | Germany/Swizerland | Yes | 9.9EUR, free if order value is 120EUR or more | No | No | 1, 5, 15kg | Yes |
@@ -57,7 +57,7 @@ This is inspired by [EU Green Coffee Sources List 2023 (home-barista.com)](https
 | Roestart | [Rohkaffee (roestart.de)](https://roestart.de/rohkaffee/) | Germany | Yes | 15.9 EUR | No | No | 500gr, 1kg | No |
 | goodkarmacoffee | [Rohkaffee – Good Karma Coffee](https://goodkarmacoffee.de/produkt-kategorie/rohkaffee/) | Germany | No | N/A | No | No | 1kg, 5kg | No |
 | docklands | [Rohkaffee kaufen und selber rösten (docklands-coffee.de)](https://docklands-coffee.de/rohkaffee/) | Germany | Yes | 16EUR | No | No | 1, 5 and 10kg | Yes |
-| rjavitukan | [Surova kava Archives – Rjavi tukan](https://rjavitukan.si/kategorija-izdelka/surova-kava/) | Slovakia | Yes | 21.9EUR | No | No | 1, 3, 5, and 10kg | No |
+| rjavitukan | [Surova kava Archives – Rjavi tukan](https://www.rjavitukan.si/si/product-category/surova-kava/) | Slovakia | Yes | 21.9EUR | No | No | 1, 3, 5, and 10kg | No |
 | koffiebranderijdekoepoort | [GROENE ONGEBRANDE KOFFIEBONEN – Koffiebranderij de Koepoort](https://koffiebranderijdekoepoort.nl/nl/producten/groene-koffiebonen) | Netherlands | Yes | Flat rate 24.5 EUR | No | No | 1kg | No |
 | Falcon-micro | [Shop Europe – Falcon Micro (falcon-micro.com)](https://falcon-micro.com/shop-europe/) | UK (EU warehouse) | Yes | 246kr for minimum 5kg, increased with weight | No | Yes | 5 and 10kg | No |
 | 88 grains | [Shop \| 88 Graines](https://www.88graines.com/shop) | France | Yes | 6.9EUR minimum, increased with weight, free for 300 EUR+ | No | Yes | 1kg | Yes (Month/year) |
