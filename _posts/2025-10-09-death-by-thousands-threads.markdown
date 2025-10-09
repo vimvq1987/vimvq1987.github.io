@@ -7,11 +7,11 @@ categories: [debugging, memory-leak, .net, application-insights]
 tags: [dotnet, memory-dump, application-insights, thread-leak, unmanaged-memory]
 ---
 
-The problem was a gigantic **106 GB memory dump** with a very small managed heap compared to the dump's size.
+There are things in life that excites and scares you at the same time. Recently I helped out a case when it's both exciting and scary. The problem was a gigantic **106 GB memory dump** with a very small managed heap compared to the dump's size. That hints **unmanaged** memory leak. While I'm fairly confident with memory dump analysis, I haven't had a lot of good luck with unmanaged memory leaks. It could have turned into a big headache and unknown territory. But if it's not me then who will go to hell? Then game is on.
 
 ## The Unmanaged Mystery
 
-The actual managed heap was only about **750 MB**. This is interesting—and tricky. When you have a big memory dump that also has a big heap, you likely have some dominant object types. But if you have a (very) small heap, it means a lot of memory is allocated as **unmanaged**, which can be, most of the time, very tricky to figure out. I haven't had a lot of good luck with unmanaged memory leaks.
+As we said, the actual memory dump is 106GB insize. The actual managed heap was only about **750 MB**. When you have a big memory dump that also has a big heap, you likely have some dominant object types. But if you have a (very) small heap, it means a lot of memory is allocated as **unmanaged**, which can be, most of the time, very tricky to figure out. 
 
 The heap statistics looked like this:
 
@@ -35,6 +35,9 @@ The heap statistics looked like this:
 | **Total** | **5,623,983** | **763,492,663** | |
 
 ---
+
+Then where is the rest?
+When I was about to pull the hairs (whatever I have left), I realized I don't have to. Something else caught I attention. Before diving into the scary unmanaged memory part, maybe it's worth checking this first.
 
 ## The Thread Bomb
 
@@ -114,3 +117,4 @@ The quick solution in this case is to set the `ConnectionString` properly in cod
 _configuration.ConnectionString = Configuration["ApplicationInsights:ConnectionString"];
 ````
 
+Moral of story is that you fail to do something, better to throw an exception for it, than just waiting silently
