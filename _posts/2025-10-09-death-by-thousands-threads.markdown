@@ -15,26 +15,25 @@ As we said, the actual memory dump is 106GB insize. The actual managed heap was 
 
 The heap statistics looked like this:
 
-| MT | Count | Size (bytes) | Type |
-|---|---|---|---|
-| `7644edfba450` | 87,127 | 4,895,256 | `System.String[]` |
-| `7644f0b1b718` | 88,507 | 4,956,392 | `EPiServer.Core.PropertyBoolean` |
-| `7644f77fb8d8` | 81,056 | 5,187,584 | `Microsoft.Extensions.Caching.Memory.PostEvictionDelegate` |
-| `7644fa376d60` | 73,994 | 5,327,568 | `System.Collections.Concurrent.ConcurrentDictionary<EPiServer.Core.Internal.ContentCacheKeyLookup+KeyLookup, System.String>+Node` |
-| `7644f0b16f30` | 83,480 | 5,342,720 | `EPiServer.Core.PropertyString` |
-| `7644f88e8020` | 1,622 | 6,526,928 | `Microsoft.ApplicationInsights.Channel.ITelemetry[]` |
-| `7644fa3b5390` | 31,727 | 7,371,552 | `EPiServer.Core.PropertyData[]` |
-| `7644f4ffd310` | 82,950 | 8,626,800 | `Microsoft.Extensions.Caching.Memory.CacheEntry` |
-| `7644eeb43710` | 88,044 | 9,156,576 | `System.Reflection.RuntimeMethodInfo` |
-| `7644edea89e0` | 109,744 | 10,730,392 | `System.Int32[]` |
-| `7644fa730e58` | 30,460 | 23,308,416 | `System.Collections.Generic.Dictionary<System.String, EPiServer.Core.PropertyData>+Entry[]` |
-| `7644f0b12b90` | 317,446 | 25,395,680 | `EPiServer.Core.PropertyLongString` |
-| `7644eeb8c418` | 90,688 | 58,585,762 | `System.Byte[]` |
-| `7644edead7c8` | 1,051,306 | 148,543,168 | `System.String` |
-| `62efedb200b0` | 90,833 | 213,897,448 | `Free` |
-| **Total** | **5,623,983** | **763,492,663** | |
+```
+7644edfba450    87,127   4,895,256 System.String[]
+7644f0b1b718    88,507   4,956,392 EPiServer.Core.PropertyBoolean
+7644f77fb8d8    81,056   5,187,584 Microsoft.Extensions.Caching.Memory.PostEvictionDelegate
+7644fa376d60    73,994   5,327,568 System.Collections.Concurrent.ConcurrentDictionary<EPiServer.Core.Internal.ContentCacheKeyLookup+KeyLookup, System.String>+Node
+7644f0b16f30    83,480   5,342,720 EPiServer.Core.PropertyString
+7644f88e8020     1,622   6,526,928 Microsoft.ApplicationInsights.Channel.ITelemetry[]
+7644fa3b5390    31,727   7,371,552 EPiServer.Core.PropertyData[]
+7644f4ffd310    82,950   8,626,800 Microsoft.Extensions.Caching.Memory.CacheEntry
+7644eeb43710    88,044   9,156,576 System.Reflection.RuntimeMethodInfo
+7644edea89e0   109,744  10,730,392 System.Int32[]
+7644fa730e58    30,460  23,308,416 System.Collections.Generic.Dictionary<System.String, EPiServer.Core.PropertyData>+Entry[]
+7644f0b12b90   317,446  25,395,680 EPiServer.Core.PropertyLongString
+7644eeb8c418    90,688  58,585,762 System.Byte[]
+7644edead7c8 1,051,306 148,543,168 System.String
+62efedb200b0    90,833 213,897,448 Free
+Total 5,623,983 objects, 763,492,663 bytes
 
----
+```
 
 Then where is the rest?
 When I was about to pull the hairs (whatever I have left), I realized I don't have to. Something else caught I attention. Before diving into the scary unmanaged memory part, maybe it's worth checking this first.
