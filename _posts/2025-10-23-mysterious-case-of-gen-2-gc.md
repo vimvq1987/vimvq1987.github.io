@@ -34,17 +34,17 @@ The realization
 ![Now I see it](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIxZHk3Y2F4YmJjcTJqd2xrdHUyYWVyc2tjNW1rNjI4cHJxYjkzZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/11ykUODgXjAXZu/giphy.gif)
 
 The profiler is set up to trigger 
-![](assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023152400.png)
+![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023152400.png)
 
 Of course, the immediate action is to disable auto triggering profiler. The long term action is to update to a newer version of Microsoft.ApplicationInsights.Profiler.AspNetCore.
 
 Let's the end result speak for itself, this is the Gen 2 GC before and after disabling the profiler. After 30 minutes
 
-![](assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023150433.png)
+![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023150433.png)
 
 And a few days later, the difference was ... strong.
 
-![](assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023145954.png)
+![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023145954.png)
 
 Note that, one Gen 2 GC daily is fine.
 
