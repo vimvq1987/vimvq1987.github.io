@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The mysterious case of Gen 2 GC"
+title: "(Draft) The mysterious case of Gen 2 GC"
 date: 2025-10-23 10:00:00 +0200
 categories: [ApplicationInsights, Performance, GarbageCollection]
 tags: [episerver, troubleshooting, gc, performance]
@@ -33,6 +33,10 @@ The realization
 
 ![Now I see it](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIxZHk3Y2F4YmJjcTJqd2xrdHUyYWVyc2tjNW1rNjI4cHJxYjkzZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/11ykUODgXjAXZu/giphy.gif)
 
+The first Gen 2 GC in every trace that I opened, is almost always at the beginning of the trace itself. Could it be that the profiler caused the garbage collection?
+
+![Coincidence? I think not](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTIzbnJpeml6bXNvcHN2b25qemYxdnZjdXd5aDY0bzA4eXdnMnoxaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7GcdjWkek7Apq/giphy.gif)
+
 The profiler is set up to trigger 
 ![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023152400.png)
 
@@ -42,7 +46,7 @@ Let's the end result speak for itself, this is the Gen 2 GC before and after dis
 
 ![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023150433.png)
 
-And a few days later, the difference was ... strong.
+And a few days later, the difference was ... strong. We only have one CPU spike the whole day:
 
 ![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023145954.png)
 
