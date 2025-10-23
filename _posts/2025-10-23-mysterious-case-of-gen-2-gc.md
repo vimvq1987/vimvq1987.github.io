@@ -43,6 +43,8 @@ The profiler is set up to trigger with sample. By Normal sampling rate, it'll be
 
 Of course, the immediate action is to disable auto triggering profiler. The long term action is to update to a newer version of Microsoft.ApplicationInsights.Profiler.AspNetCore.
 
+The even trickier part is that, the code that triggers Gen 2 GC is an dependency assembly that is automatically "added" when you run the container on Azure. It's not part of the deployment package. Which is why I didn't find it.
+
 Let's the end result speak for itself, this is the Gen 2 GC before and after disabling the profiler. After 30 minutes
 
 ![Things are getting better](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023150433.png)
