@@ -37,18 +37,19 @@ The first Gen 2 GC in every trace that I opened, is almost always at the beginni
 
 ![Coincidence? I think not](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTIzbnJpeml6bXNvcHN2b25qemYxdnZjdXd5aDY0bzA4eXdnMnoxaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7GcdjWkek7Apq/giphy.gif)
 
-The profiler is set up to trigger 
+The profiler is set up to trigger with sample. By Normal sampling rate, it'll be 2 minutes every hour. But there is a bug in the version they were using, every time the profiler is triggered, it triggers a Gen 2 GC itself
+
 ![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023152400.png)
 
 Of course, the immediate action is to disable auto triggering profiler. The long term action is to update to a newer version of Microsoft.ApplicationInsights.Profiler.AspNetCore.
 
 Let's the end result speak for itself, this is the Gen 2 GC before and after disabling the profiler. After 30 minutes
 
-![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023150433.png)
+![Things are getting better](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023150433.png)
 
 And a few days later, the difference was ... strong. We only have one CPU spike the whole day:
 
-![](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023145954.png)
+![much better](/assets/img/2025-10-23-mysterious-case-of-gen-2-gc/20251023145954.png)
 
 Note that, one Gen 2 GC daily is fine.
 
