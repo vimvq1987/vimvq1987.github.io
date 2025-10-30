@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "You might need to rethink your clustered index"
-date: 2025-10-20 11:09:50 +0200
+date: 2025-10-30 11:09:50 +0200
 categories: [performance, database, optimization]
 tags: [performance, optimization, sql-server, index]
 ---
@@ -40,7 +40,7 @@ CREATE TABLE [dbo].[ProductReview](
 )
 ```
 
-D> I did some modifications to the table. Originally it has some `nvarchar(max)` columns, which I think is a bad design choice. Unless if you are absolutely sure you need some very long values, it should generally be avoided. For starter you can't add an index to a `nvarchar(max)`, and it opens the database to abuse
+> I did some modifications to the table. Originally it has some `nvarchar(max)` columns, which I think is a bad design choice. Unless if you are absolutely sure you need some very long values, it should generally be avoided. For starter you can't add an index to a `nvarchar(max)`, and it opens the database to abuse
 
 and here is the query 
 
@@ -98,7 +98,7 @@ We reduced logical reads to 10. While 21 logical reads do not sound like a lot, 
 
 Moral of story? Think twice before selecting your clustered index. It does not have to be your identity columns. Picking the right clustered index could make a night and day difference to your query!
 
-D> P/S you can see that `ReviewDate` is used in `ORDER BY` clause. If you include that in your index (which makes a perfect sense in this case as `DateTime` is, most of the times, excellent choice for index), you can drop the logical reads a little bit more. But that's more for fun than just practicality.
+> P/S you can see that `ReviewDate` is used in `ORDER BY` clause. If you include that in your index (which makes a perfect sense in this case as `DateTime` is, most of the times, excellent choice for index), you can drop the logical reads a little bit more. But that's more for fun than just practicality.
 
 
 
