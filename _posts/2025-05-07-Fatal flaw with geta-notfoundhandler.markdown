@@ -5,7 +5,7 @@ date: 2025-10-01
 author: Quan Mai
 categories: [Diagnostics, ASP.NET Core, Optimizely]
 tags: [geta-notfoundhandler, redirects, CPU spike, memory dump, endless loop]
-image: /assets/images/image-2.png
+image: /assets/img/image-2.png
 excerpt: A deep dive into a fatal flaw in Geta-NotFoundHandler that caused high CPU usage due to an endless loop triggered by an empty redirect rule.
 ---
 
