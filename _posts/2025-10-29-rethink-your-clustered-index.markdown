@@ -45,10 +45,10 @@ CREATE TABLE [dbo].[ProductReview](
 and here is the query 
 
 ```
-SELECT [p].[Id], [p].[Code], [p].[Country], [p].[CreatedBy], [p].[CustomerComment], [p].[CustomerEmail], [p].[CustomerName], [p].[DateAdded], [p].[DateCreated], [p].[DateModified], [p].[DateSince], [p].[Description], [p].[FeedbackKey], [p].[HelpfulVotes], [p].[ModifiedBy], [p].[OrderRef], [p].[ProductCode], [p].[ProductLink], [p].[Rating], [p].[ReviewDate], [p].[ReviewTitle]
+SELECT [p].[Id], [p].[Code], [p].[Country], [p].[CreatedBy], [p].[CustomerEmail], [p].[CustomerName], [p].[DateAdded], [p].[DateCreated], [p].[DateModified], [p].[Description], [p].[HelpfulVotes], [p].[ModifiedBy], [p].[ProductCode], [p].[ProductLink], [p].[Rating], [p].[ReviewDate], [p].[ReviewTitle]
 FROM [ProductReview] AS [p]
 WHERE [p].[Code] IN (
-    '54886RVN0078193', '59252RVN0086669'
+    'abc123', 'xyz456'
 )
 ORDER BY [p].[ReviewDate] DESC
 ```
