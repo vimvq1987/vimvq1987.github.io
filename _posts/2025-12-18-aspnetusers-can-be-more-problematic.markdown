@@ -17,19 +17,19 @@ WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
 
 Note that this is already a "better" API, as we are using normalized user name, so you avoid problem with casing - which could be very difficult to solve. It is a very simple query, as this is only selecting `TOP 1`, and we match the rows based on one column, it should have fast performance, right? No, it is not
 
-![Every call cost 80ms](assets/img/2025-12-18-aspnetusers-can-be-more-problematic/20251218110225.png)
+![Every call cost 80ms](/assets/img/2025-12-18-aspnetusers-can-be-more-problematic/20251218110225.png)
 
 And that query is single-handedly responsible for high usage of the database, 
 
-![](assets/img/2025-12-18-aspnetusers-can-be-more-problematic/20251218111037.png)
+![](/assets/img/2025-12-18-aspnetusers-can-be-more-problematic/20251218111037.png)
 
 and it's 32 vCores, no less
 
-![](assets/img/2025-12-18-aspnetusers-can-be-more-problematic/20251218110404.png)
+![](/assets/img/2025-12-18-aspnetusers-can-be-more-problematic/20251218110404.png)
 
 The reason is simple - a non clustered index is missing on `NormalizedUserName`. Adding it would make a huge difference on the specific query, the overall database usage, and therefore, performance. The problem runs deeper, there was a custom index on this column. However, it's `(SiteId, NormalizedUserName)`, and `SiteId` has very bad cardinality, causing a full scan on that index. 
 
-![](assets/img/2025-12-18-aspnetusers-can-be-more-problematic/20251218121614.png)
+![](/assets/img/2025-12-18-aspnetusers-can-be-more-problematic/20251218121614.png)
 
 
 The moral of this story - never assume that an API you use has adaquate, let alone, good performance. Always check your CPU, Memory and database usage to see if they are higher than they should be. Database queries are particularly easy to spot - we have Query Store which is extremely helpful in identifying bad queries.
