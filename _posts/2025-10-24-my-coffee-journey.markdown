@@ -20,4 +20,16 @@ I am now an owner of a coffee machine.
 ![
  1](images/369273699f4854fee5c71d1b2f79ac72018153f70ca7eec3077cbc535c9ca149.png)  
 
+It was fun at the time, 
+
+but I realized I was quickly outgrowing the machine. The machine was difficult to dial, you can't easily adjust the grinder to grind as fine or coarse as you would like. The machine only has only 5 settings for temperature. Being a thermojet machine, Sage advertises it as being ready in 3 seconds, but the grouphead and portafilter require much longer to heat up, and that can result in a very sour espressos. You need to pull a few empty shots just ot water to heat them up. It can make decent latte with the right skills, but it lacks something crucial for the new beginners - repeatablity and reliability. People usually tout it as a good beginner machine, so you can learn the art of pulling espressos and making latte art, but I see the way around. If you are skilled enough you can get by with it, but if you want to further advance in your coffee adventure, it will quickly become your bottleneck.
+
+That was the case with me, so after less than one year with Sage, I decided to upgrade. After much research - again, it is decided that I will go with Lelit Elizabeth and Eureka Mignon Specialita.
+
+Let me get straight to the point, this is the combination I like a lot, and wholeheartedly recommend it to anyone who wants something that high quality, affordable and last a long time. Yes it is not cheap, but if you want to buy once, cry once, this is pretty much it.
+
+![picture 1](images/24e0c7c450d1adcae8e2112398b597c685bb51ea5aed854d7f29584758fd3ea9.png)  
+
+But for me, it's not about crying once.
+
 
