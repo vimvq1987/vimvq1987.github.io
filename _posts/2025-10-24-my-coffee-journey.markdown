@@ -18,7 +18,7 @@ Fast forward a few more years. 2020. Covid. Everybody stayed at home. Then one d
 I am now an owner of a coffee machine.
 
 ![
- 1](images/369273699f4854fee5c71d1b2f79ac72018153f70ca7eec3077cbc535c9ca149.png)  
+ 1](/assets/img/2025-10-24-my-coffee-journey/369273699f4854fee5c71d1b2f79ac72018153f70ca7eec3077cbc535c9ca149.png)  
 
 It was fun at the time, 
 
@@ -28,7 +28,7 @@ That was the case with me, so after less than one year with Sage, I decided to u
 
 Let me get straight to the point, this is the combination I like a lot, and wholeheartedly recommend it to anyone who wants something that high quality, affordable and last a long time. Yes it is not cheap, but if you want to buy once, cry once, this is pretty much it.
 
-![picture 1](images/24e0c7c450d1adcae8e2112398b597c685bb51ea5aed854d7f29584758fd3ea9.png)  
+![picture 1](/assets/img/2025-10-24-my-coffee-journey/24e0c7c450d1adcae8e2112398b597c685bb51ea5aed854d7f29584758fd3ea9.png)  
 
 But for me, it's not about crying once.
 
