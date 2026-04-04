@@ -28,7 +28,9 @@ That was the case with me, so after less than one year with Sage, I decided to u
 
 Let me get straight to the point, this is the combination I like a lot, and wholeheartedly recommend it to anyone who wants something that high quality, affordable and last a long time. Yes it is not cheap, but if you want to buy once, cry once, this is pretty much it.
 
-![picture 1](/assets/img/2025-10-24-my-coffee-journey/24e0c7c450d1adcae8e2112398b597c685bb51ea5aed854d7f29584758fd3ea9.png)  
+![picture 1](/assets/img/2025-10-24-my-coffee-journey/24e0c7c450d1adcae8e2112398b597c685bb51ea5aed854d7f29584758fd3ea9.png)
+
+Specialita can be grind coffee for espressos very well, and while the adjustment is not the best in the world (it is actually the common complaint about it), it works very well for an entry level espresso grinder. And Elizabeth is simply the best the entry dual boiler machine in the market. Build quality is not top notch (but solid enough), and the water resevoir is difficult to refill. But it heats up fast (less than 20 minutes), and it's really heated up - the grouphead and the portafilter locked in to it - are both hot (that can burn you) once the machine is ready. It is reliably deliver hot water at set temp, and set pressure when you need it. 
 
 But for me, it's not about crying once.
 
