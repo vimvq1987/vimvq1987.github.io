@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "How to iterate over catalog"
-date: 2026-04-20 10:00:00 +0000
-categories: optimizely episerver commerce
+date: 2026-04-20 09:00:00 +0000
+categories: [optimizely, episerver, commerce]
 tags: [episerver, csharp, commerce, scheduled-jobs]
+author: vimvq1987
 ---
 
 This is a snippet of code that I've used more times than I care to admit, but every time I have to look at my book at https://leanpub.com/epicommercerecipes - the chapter is free and can be read without buying the book. However that is quite inconvenient, so I think it is better if I put it to my blog for later usages - and maybe it helps you too.
