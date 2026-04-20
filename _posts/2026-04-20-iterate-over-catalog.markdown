@@ -16,6 +16,7 @@ Recently we got a question from a customer how to update catalog assets that wer
 This job iterates through the commerce catalog, identifies PDF assets, and moves them into a specific "Download" group. It implements the `Stop()` method and checks the `_stopPressed` flag within every loop and recursive call to ensure the job shuts down gracefully when requested.
 
 ```csharp
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
