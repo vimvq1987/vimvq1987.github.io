@@ -17,136 +17,136 @@ This job iterates through the commerce catalog, identifies PDF assets, and moves
 
 ```csharp
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using EPiServer.Commerce.Catalog.ContentTypes;
-using EPiServer.Core;
-using EPiServer.DataAccess;
-using EPiServer.PlugIn;
-using EPiServer.Scheduler;
-using EPiServer.Security;
-using Mediachase.Commerce.Catalog;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using EPiServer.Commerce.Catalog.ContentTypes;
+    using EPiServer.Core;
+    using EPiServer.DataAccess;
+    using EPiServer.PlugIn;
+    using EPiServer.Scheduler;
+    using EPiServer.Security;
+    using Mediachase.Commerce.Catalog;
 
-namespace YourProject.Infrastructure.Indexing
-{
-    [ScheduledPlugIn(
-        DisplayName = "Catalog Asset Updater",
-        Description = "Updates PDF media assets to the 'Download' group.",
-        SortIndex = 100)]
-    public class CatalogAssetUpdater : ScheduledJobBase
+    namespace YourProject.Infrastructure.Indexing
     {
-        private readonly IContentRepository _contentRepository;
-        private readonly ReferenceConverter _converter;
-        private bool _stopPressed;
-
-        public CatalogAssetUpdater(IContentRepository contentRepository, ReferenceConverter converter)
+        [ScheduledPlugIn(
+            DisplayName = "Catalog Asset Updater",
+            Description = "Updates PDF media assets to the 'Download' group.",
+            SortIndex = 100)]
+        public class CatalogAssetUpdater : ScheduledJobBase
         {
-            IsStoppable = true;
-            _contentRepository = contentRepository;
-            _converter = converter;
-        }
+            private readonly IContentRepository _contentRepository;
+            private readonly ReferenceConverter _converter;
+            private bool _stopPressed;
 
-        public override string Execute()
-        {
-            var processed = 0;
-            var rootLink = _converter.GetRootLink();
-            var catalogs = _contentRepository.GetChildren<CatalogContent>(rootLink);
-
-            foreach (var catalog in catalogs)
+            public CatalogAssetUpdater(IContentRepository contentRepository, ReferenceConverter converter)
             {
-                // Check for cancellation
-                if (_stopPressed) return ShutdownMessage(processed);
+                IsStoppable = true;
+                _contentRepository = contentRepository;
+                _converter = converter;
+            }
 
-                OnStatusChanged($"Processing catalog: {catalog.Name}");
+            public override string Execute()
+            {
+                var processed = 0;
+                var rootLink = _converter.GetRootLink();
+                var catalogs = _contentRepository.GetChildren<CatalogContent>(rootLink);
 
-                var entries = GetEntriesRecursive<EntryContentBase>(catalog.ContentLink, CultureInfo.GetCultureInfo(catalog.DefaultLanguage));
-
-                foreach (var entry in entries)
+                foreach (var catalog in catalogs)
                 {
                     // Check for cancellation
                     if (_stopPressed) return ShutdownMessage(processed);
 
-                    if (entry != null && entry.CommerceMediaCollection.Any())
-                    {
-                        var writeableClone = entry.CreateWritableClone<EntryContentBase>();
-                        bool wasUpdated = false;
+                    OnStatusChanged($"Processing catalog: {catalog.Name}");
 
-                        foreach (var item in writeableClone.CommerceMediaCollection)
+                    var entries = GetEntriesRecursive<EntryContentBase>(catalog.ContentLink, CultureInfo.GetCultureInfo(catalog.DefaultLanguage));
+
+                    foreach (var entry in entries)
+                    {
+                        // Check for cancellation
+                        if (_stopPressed) return ShutdownMessage(processed);
+
+                        if (entry != null && entry.CommerceMediaCollection.Any())
                         {
-                            var asset = _contentRepository.Get<MediaData>(item.AssetLink);
-                            if (asset.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                            var writeableClone = entry.CreateWritableClone<EntryContentBase>();
+                            bool wasUpdated = false;
+
+                            foreach (var item in writeableClone.CommerceMediaCollection)
                             {
-                                item.GroupName = "Download";
-                                wasUpdated = true;
+                                var asset = _contentRepository.Get<MediaData>(item.AssetLink);
+                                if (asset.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    item.GroupName = "Download";
+                                    wasUpdated = true;
+                                }
+                            }
+
+                            if (wasUpdated)
+                            {
+                                _contentRepository.Save(writeableClone, SaveAction.Publish, AccessLevel.NoAccess);
+                                processed++;
                             }
                         }
 
-                        if (wasUpdated)
+                        if (processed % 10 == 0)
                         {
-                            _contentRepository.Save(writeableClone, SaveAction.Publish, AccessLevel.NoAccess);
-                            processed++;
+                            OnStatusChanged($"Processed {processed} entries...");
                         }
                     }
-
-                    if (processed % 10 == 0)
-                    {
-                        OnStatusChanged($"Processed {processed} entries...");
-                    }
                 }
+
+                return $"Successfully processed {processed} entries";
             }
 
-            return $"Successfully processed {processed} entries";
-        }
-
-        public override void Stop()
-        {
-            _stopPressed = true;
-        }
-
-        private string ShutdownMessage(int count)
-        {
-            return $"Job stopped by user. Processed {count} entries before stopping.";
-        }
-
-        public virtual IEnumerable<T> GetEntriesRecursive<T>(ContentReference parentLink, CultureInfo defaultCulture) where T : EntryContentBase
-        {
-            foreach (var nodeContent in LoadChildrenBatched<NodeContent>(parentLink, defaultCulture))
+            public override void Stop()
             {
-                if (_stopPressed) yield break;
+                _stopPressed = true;
+            }
 
-                foreach (var entry in GetEntriesRecursive<T>(nodeContent.ContentLink, defaultCulture))
+            private string ShutdownMessage(int count)
+            {
+                return $"Job stopped by user. Processed {count} entries before stopping.";
+            }
+
+            public virtual IEnumerable<T> GetEntriesRecursive<T>(ContentReference parentLink, CultureInfo defaultCulture) where T : EntryContentBase
+            {
+                foreach (var nodeContent in LoadChildrenBatched<NodeContent>(parentLink, defaultCulture))
+                {
+                    if (_stopPressed) yield break;
+
+                    foreach (var entry in GetEntriesRecursive<T>(nodeContent.ContentLink, defaultCulture))
+                    {
+                        if (_stopPressed) yield break;
+                        yield return entry;
+                    }
+                }
+
+                foreach (var entry in LoadChildrenBatched<T>(parentLink, defaultCulture))
                 {
                     if (_stopPressed) yield break;
                     yield return entry;
                 }
             }
 
-            foreach (var entry in LoadChildrenBatched<T>(parentLink, defaultCulture))
+            private IEnumerable<T> LoadChildrenBatched<T>(ContentReference parentLink, CultureInfo defaultCulture) where T : IContent
             {
-                if (_stopPressed) yield break;
-                yield return entry;
-            }
-        }
-
-        private IEnumerable<T> LoadChildrenBatched<T>(ContentReference parentLink, CultureInfo defaultCulture) where T : IContent
-        {
-            var start = 0;
-            while (true)
-            {
-                if (_stopPressed) yield break;
-
-                var batch = _contentRepository.GetChildren<T>(parentLink, defaultCulture, start, 50);
-                if (!batch.Any()) yield break;
-
-                foreach (var content in batch)
+                var start = 0;
+                while (true)
                 {
-                    if (!parentLink.CompareToIgnoreWorkID(content.ParentLink)) continue;
-                    yield return content;
+                    if (_stopPressed) yield break;
+
+                    var batch = _contentRepository.GetChildren<T>(parentLink, defaultCulture, start, 50);
+                    if (!batch.Any()) yield break;
+
+                    foreach (var content in batch)
+                    {
+                        if (!parentLink.CompareToIgnoreWorkID(content.ParentLink)) continue;
+                        yield return content;
+                    }
+                    start += 50;
                 }
-                start += 50;
             }
         }
     }
-}
