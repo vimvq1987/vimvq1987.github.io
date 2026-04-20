@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to iterate over catalog"
-date: 2026-04-20 09:00:00 +0000
+date: 2026-04-20 07:00:00 +0000
 categories: [optimizely, episerver, commerce]
 tags: [episerver, csharp, commerce, scheduled-jobs]
 author: vimvq1987
