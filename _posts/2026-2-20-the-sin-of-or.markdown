@@ -6,7 +6,7 @@ categories: [performance, database, optimization]
 tags: [performance, optimization, sql-server, index]
 ---
 
-For a quite long time, I have a advocate against the use of OR inside the WHERE statement of SQL query. 
+For a quite long time, I have a advocate against the use of OR inside the WHERE statement of SQL query. Let's dive into it to know why you should avoid it, and what is the right solution for it.
 
 For developers with C# and similar experience background, OR (`||`) is pretty harmless. We've been written `Where(x => x.Name == "Something" || x.Order > 1000 )` hundreds of times, and never bat an eye about it. (AND (`&&`) is a bit different as we've learn that we should always put the cheapest/fastest to execute condition first so we can short circut the entire condition, saving us time and memory. With OR the order of conditions are irrelevant). And that experience is applied when writing SQL statement. It should work the same, right? No, it doesn't, and in most cases, it IS a costly mistake.
 
