@@ -42,7 +42,7 @@ Let's take a simple example to demonstrate that. Let's have a simple query like 
 
 We are getting the first 1000 orders of customer with specific id. The execution plan turns out nice, and the query is fast
 
-![](assets/img/2026-2-20-the-sin-of-or/20260423092923.png)
+![](/assets/img/2026-2-20-the-sin-of-or/20260423092923.png)
 
 ```
 Table 'OrderGroup'. Scan count 1, logical reads 7,
@@ -84,7 +84,7 @@ SELECT TOP (1000) [OrderGroupId]
 
 Can we call it a day and commit the code and move to the next task? No, try to run the query and see
 
-![](assets/img/2026-2-20-the-sin-of-or/20260423094121.png)
+![](/assets/img/2026-2-20-the-sin-of-or/20260423094121.png)
 
 Uh oh, the big fast line of Clustered Index Scan is ... not good. IO statistics take a big hit as well
 
@@ -96,12 +96,12 @@ Table 'OrderGroup'. Scan count 1, logical reads 138524, physical reads 0, page s
 
 Could adding an index on the `MigrationObjectId` column help? No it does not, we can validate that by querying by only that column - the index is doing its job just fine.
 
-![](assets/img/2026-2-20-the-sin-of-or/20260423094603.png)
+![](/assets/img/2026-2-20-the-sin-of-or/20260423094603.png)
 
 So what's the problem here? The OR confused the optimizer and prevented it from utilizing any useful index, so it fallback to the "safe" (yet extremely slow and costly) path of full Clustered Index Scan. In this case it's worse because it has to do a scan on both tables.
 
 I was asked if this is a problem with parameter sniffing? No, it's not. We can simply validate that by adding `OPTION (RECOMPILE)` hint to force the optimizer to compile a new execution plan, same thing
-![](assets/img/2026-2-20-the-sin-of-or/20260423095115.png)
+![](/assets/img/2026-2-20-the-sin-of-or/20260423095115.png)
 
 The only right option is to split the query and use UNION to combine the results
 
@@ -164,7 +164,7 @@ SELECT TOP (1000) [OrderGroupId]
 
 The execution plan looks (much) better
 
-![](assets/img/2026-2-20-the-sin-of-or/20260423095422.png)
+![](/assets/img/2026-2-20-the-sin-of-or/20260423095422.png)
 
 and IO statistics in normal range
 
