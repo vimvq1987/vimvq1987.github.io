@@ -101,6 +101,7 @@ Could adding an index on the `MigrationObjectId` column help? No it does not, we
 So what's the problem here? The OR confused the optimizer and prevented it from utilizing any useful index, so it fallback to the "safe" (yet extremely slow and costly) path of full Clustered Index Scan. In this case it's worse because it has to do a scan on both tables.
 
 I was asked if this is a problem with parameter sniffing? No, it's not. We can simply validate that by adding `OPTION (RECOMPILE)` hint to force the optimizer to compile a new execution plan, same thing
+
 ![](/assets/img/2026-2-20-the-sin-of-or/20260423095115.png)
 
 The only right option is to split the query and use UNION to combine the results
