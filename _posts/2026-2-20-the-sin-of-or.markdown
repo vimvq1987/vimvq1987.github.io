@@ -94,7 +94,7 @@ Table 'OrderGroup_PurchaseOrder'. Scan count 1, logical reads 50728, physical re
 Table 'OrderGroup'. Scan count 1, logical reads 138524, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
 ```
 
-Could adding an index on the `MigrationObjectId` column help? No it does not, we can validate that by querying by only that column - the index is doing its job just fine.
+Could adding an index on the `MigrationObjectId` column help? No it does not, we can validate that by querying only that column - the index is doing its job just fine.
 
 ![](/assets/img/2026-2-20-the-sin-of-or/20260423094603.png)
 
