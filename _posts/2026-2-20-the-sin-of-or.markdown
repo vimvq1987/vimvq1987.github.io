@@ -50,7 +50,7 @@ Table 'OrderGroup'. Scan count 1, logical reads 7,
 
 IO statistics is fine. We could do better with the key lookup, but that's beside the point.
 
-Now because we need to extend our query to find order by Id as well, so let's add the OR condition to the query. Just like we normally did with C#
+Now because we need to extend our query to find order by `MigrationObjectId` from a different table as well, so let's add the OR condition to the query. Just like we normally did with C#
 
 ```
 SELECT TOP (1000) [OrderGroupId]
@@ -177,7 +177,7 @@ Table 'OrderGroup_PurchaseOrder'. Scan count 1, logical reads 6, physical reads 
 
 The problem does not happen if we use `AND` instead of `OR` - as long as there is a suffient index on columns that need to be queried.
 
-The only case that OR makes senses in a WHERE statement is that you are querying columns on same table, or even same column (in that case, use `IN` could be a better choice), later versions of SQL Server has better optimizations so it can work out a plan given you have proper indexes on those columns. Not the composite index, like `(Column1, Column2)`, but only `(Column1)` and `(Column2)`, separately. However, the trick of separating query and use `UNION` would still work, especially if you are using some older versions. The reason to avoid `OR` is that you might overlook some statements when joining tables, and it only blow up later on production, at 3AM, on a Saturday. Better to avoid that, huh?
+The only case that OR makes senses in a WHERE statement is that you are querying columns on same table, or even same column (in that case, use `IN` could be a better choice), later versions of SQL Server has better optimizations so it can work out a plan given you have proper indexes on those columns. Not the composite index, like `(Column1, Column2)`, but only `(Column1)` and `(Column2)`, separately. However, the trick of separating query and use `UNION` would still work, especially if you are using some older versions. The reason to avoid `OR` is that you might overlook some statements when joining tables, and it only blows up later on production, at 3AM, on a Saturday. Better to avoid that, huh?
 
 Moral of the story? SQL is different from your "server" language. What could be normal in your C# does not translate well into SQL. Concise and beauty are not the goal for your stored procedure, performance is. Of course, you can always format your query to be better, but the most important task when writing a query to run a few tests of your query on a suffient big data set and ensure it behaves the way you want it to be. Test, don't assume.
 
