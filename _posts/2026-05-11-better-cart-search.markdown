@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Better serializable cart search"
-date: 2026-01-15 11:09:50 +0200
+date: 2026-05-11 11:09:50 +0200
 categories: [performance, sql-server, optimization]
 tags: [performance, optimization, database, index]
 ---
