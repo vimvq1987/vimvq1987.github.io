@@ -13,7 +13,7 @@ This is how expensive the stored procedure is: it's slow, it's extremely IO heav
 
 ![](/assets/img/2026-06-12-FindPagesWithCriteria-is-bad-for-ya/20260612143810.png)
 
-You can do better than that. Ditch it and use the like of indexed search. If you're running on DXP you already have Search & Navigation at your disposal. Even if you don't want to rewrite much of your code to use Find, this is how you can mitigate the problem - an immediate layer that allows you to keep the code but use Find internally. 
+You can do better than that. Ditch it and use the like of indexed search. If you're running on DXP you already have Search & Navigation at your disposal. Even if you don't want to rewrite much of your code to use Find, this is how you can mitigate the problem - an immediate layer that allows you to keep the code but use Find internally. Yes, the irony is that my previous post is about how Find is not the answer for everything - this is exactly something Find is designed for - free text searching.
 
 ```
 using System;
